@@ -1,0 +1,259 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row>
+      <ion-title style="font-weight: bolder;">Pedidos</ion-title>
+      <ion-col style="text-align: right; margin-inline-end: 1rem;">
+        <ion-icon name="cart"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <form (submit)="submitPedidos()" [formGroup]="registerForm">
+      <ion-grid>
+        <ion-row style="--background: transparent;  justify-content: center;margin-top: 1rem;" class="img-fluid">
+          <img class="img-fluid" style="width: 15%;" src="../assets/store.png" alt="ion"><br>
+        </ion-row>
+        <ion-item style="text-align: center; justify-content: center; " lines="none">
+          <ion-label style="font-weight: bold;">DATOS CLIENTE</ion-label>
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-label position="stacked" class="label-pedidos">CLIENTE</ion-label>
+          <ion-input type="text" name="idcliente" disabled required>{{nombre_cliente}}
+          </ion-input>
+        </ion-item>
+
+        <ion-item lines="inset">
+          <ion-label position="stacked" class="label-pedidos">EMPRESA</ion-label>
+          <ion-input type="text" name="idempresa" disabled required>{{nombre_empresa}}</ion-input>
+        </ion-item>
+
+        <ion-item lines="inset">
+          <ion-label position="stacked" class="label-pedidos">CATEGORÍA PRODUCTO<sup>*</sup></ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-tab-button name="madera" (click)="avatar1()" value="madera">
+                  
+                  <img src="../../assets/wood.jpg">
+                  
+                </ion-tab-button>
+              </ion-col>
+              <ion-col>
+                <ion-tab-button (click)="avatar2()" value="madera">
+
+                  <img src="../../assets/wood.jpg">
+
+                </ion-tab-button>
+              </ion-col>
+              <ion-col>
+                <ion-tab-button (click)="avatar3()" value="madera">
+
+                  <img src="../../assets/wood.jpg">
+
+                </ion-tab-button>
+              </ion-col>
+              <ion-col>
+                <ion-tab-button (click)="avatar4()" value="madera">
+
+                  <img src="../../assets/wood.jpg">
+
+                </ion-tab-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-select style="margin-top: 0.4rem;" placeholder="<-- Selecciona Categoría-->" name="idcategoria"
+            (ionChange)="onChangeCategoria($event)" cancelText="Cancelar" okText="OK">
+            <ion-select-option value="madera">Madera</ion-select-option>
+            <ion-select-option value="vidrio">Vidrio</ion-select-option>
+            <ion-select-option value="aluminio">Aluminio</ion-select-option>
+
+            <ion-select-option value="otro">Otro</ion-select-option>
+
+          </ion-select>
+
+          <ion-input type="hidden" formControlName="idproducto" value="{{id_producto}}" name="idproducto" required>
+          </ion-input>
+        </ion-item><br>
+
+        <ion-button class="btn-pedidos" expand="block" style="color:white; --background: #689305 !important;"
+          (click)="Catalogo()">
+          <ion-icon slot="start" name="book"></ion-icon>
+          Catálogo
+        </ion-button>
+        <!-- <ion-input type="hidden" [(ngModel)]="pedidos.idproducto" name="idproducto" required></ion-input> -->
+
+        <ion-card>
+
+          <ion-row>
+            <ion-col>
+              <ion-item style="text-align: center; justify-content: center" lines="none">
+                <ion-label style="color: #689305;">Detalle del Producto</ion-label>
+              </ion-item>
+              <ion-item lines="none">
+                <ion-label position="stacked" class="label-pedidos">Detalle</ion-label>
+                <ion-input type="text" name="ancho" style="margin-top: 0.4rem;" disabled>{{producto.detalle}}
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-label position="stacked" class="label-pedidos">Tipo<sup>*</sup></ion-label>
+                <ion-input type="text" name="tipo" disabled>{{producto.tipo}}</ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-label position="stacked" class="label-pedidos">Categoria<sup>*</sup></ion-label>
+                <ion-input type="text" name="categoria" disabled>{{producto.categoria}}</ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-label position="stacked" class="label-pedidos">Precio<sup>*</sup></ion-label>
+                <ion-input type="text" name="precio" disabled>{{producto.precio}} $</ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col *ngIf="boolcontrol ; else nocontrollargo">
+              <ion-item lines="none">
+                <ion-label position="stacked" class="label-pedidos">Largo<sup>*</sup></ion-label>
+                <ion-input type="text" name="largo" disabled>{{producto.largo}} cm</ion-input>
+              </ion-item>
+            </ion-col>
+            <ng-template #nocontrollargo></ng-template>
+            <ion-col *ngIf="boolcontrol ; else nocontrolancho">
+              <ion-item lines="none">
+                <ion-label position="stacked" class="label-pedidos">Ancho<sup>*</sup></ion-label>
+                <ion-input type="text" name="ancho" disabled>{{producto.ancho}} cm</ion-input>
+              </ion-item>
+            </ion-col>
+            <ng-template #nocontrolancho></ng-template>
+          </ion-row>
+
+        </ion-card>
+
+
+        <ion-card formArrayName="dimensiones" *ngFor="let dimension of dimensiones.controls; let i = index">
+          <div [formGroupName]="i">
+            <ion-row>
+              <ion-col style="text-align: center;">
+                <ion-label style="font-size: 1rem; font-weight: bold; letter-spacing: 0.1rem; color: rgb(39, 39, 39);">
+                  CORTE {{i+1}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item lines="inset">
+                  <ion-label position="stacked" [attr.for]="'cantidad' + i" class="label-pedidos">Cantidad<sup>*</sup>
+                  </ion-label>
+                  <ion-input type="number" [attr.id]="'cantidad' + i" formControlName="cantidad" name="cantidad"
+                    required>
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col style="text-align: center;">
+                <ion-button color="danger" (click)="remover(i)">Remover</ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item lines="inset">
+                  <ion-label position="stacked" class="label-pedidos" [attr.for]="'largo' + i">Largo(cm)<sup>*</sup>
+                  </ion-label>
+                  <ion-input type="number" [attr.id]="'largo' + i" name="largo" formControlName="largo" required>
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+              <br />
+              <ion-col>
+                <ion-item lines="inset">
+                  <ion-label position="stacked" class="label-pedidos" [attr.for]="'ancho' + i">Ancho(cm)<sup>*</sup>
+                  </ion-label>
+                  <ion-input type="number" [attr.id]="'ancho' + i" name="ancho" formControlName="ancho" required>
+                  </ion-input>
+                </ion-item>
+                <br />
+              </ion-col>
+
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item lines="none">
+                  <ion-label>Lado Sup</ion-label>
+                  <ion-checkbox slot="start" [attr.id]="'lsup' + i" formControlName="lsup" name="lsup"></ion-checkbox>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item lines="none">
+                  <ion-label>Lado Inf</ion-label>
+                  <ion-checkbox slot="start" [attr.id]="'linf' + i" formControlName="linf" name="linf"></ion-checkbox>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item lines="none">
+                  <ion-label>Lado Der</ion-label>
+                  <ion-checkbox slot="start" [attr.id]="'lder' + i" formControlName="lder" name="lder"></ion-checkbox>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item lines="none">
+                  <ion-label>Lado Izq</ion-label>
+                  <ion-checkbox slot="start" [attr.id]="'lizq' + i" formControlName="lizq" name="lizq"></ion-checkbox>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-item>
+                <ion-label position="stacked" [attr.for]="'observacion' + i" class="label-pedidos">Observación
+                </ion-label>
+                <ion-input type="text" [attr.id]="'observacion' + i" formControlName="observacion"
+                  placeholder="Ingresa tu mensaje..." style="margin-top: 0.5rem;"></ion-input>
+              </ion-item>
+            </ion-row>
+          </div>
+        </ion-card>
+
+        <ion-list *ngIf="boolcontrol ; else nocontrol">
+          <ion-button expand="block" class="btn-pedidos" style="color:white; --background: #689305 !important;"
+            (click)="addDimensiones()">
+            <ion-icon slot="start" name="cut"></ion-icon>Agregar Corte
+          </ion-button>
+        </ion-list>
+
+        <ng-template #nocontrol></ng-template>
+
+      </ion-grid>
+
+
+      <ion-grid style="margin-top: 1rem">
+        <ion-button type="submit" class="btn-pedidos" expand="block"
+          style="color:white; --background: #8f1717 !important;" (click)="guardarPedido()">
+          <ion-icon slot="start" name="enter"></ion-icon>
+          GUARDAR
+        </ion-button>
+
+        <ion-button (click)="finalizarPedido()" class="btn-pedidos" expand="block" color="dark">
+          <ion-icon slot="start" name="enter"></ion-icon>
+          FINALIZAR PEDIDO
+        </ion-button>
+
+        <ion-item style="text-align: center" lines="none">
+          <ion-label style="font-size: 0.5rem">TODOS LOS DERECHOS RESERVADOS POR
+            <a href="">DESARROLLADORES</a>
+          </ion-label>
+        </ion-item>
+      </ion-grid>
+
+
+
+    </form>
+  </ion-list>
+</ion-content>

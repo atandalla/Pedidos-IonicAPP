@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button name="arrow-back" text="Regresar" defaultHref="/tabs"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle Pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card>
+      <ion-row>
+        <ion-col>
+          ANGEL MARIA CHILIQUINGA
+        </ion-col>
+        <ion-col>
+          <ion-card-header>
+            <ion-card-subtitle>{{encabezado.fecha}}</ion-card-subtitle>
+            <ion-card-title>Total: {{encabezado.totalpagar}} $</ion-card-title>
+          </ion-card-header>
+        </ion-col>
+
+      </ion-row>
+
+    </ion-card>
+  </ion-list>
+
+
+  <ion-list>
+    <!-- Añadir producto
+    {{listaPedidos[0].dimensiones[0].ancho}}
+    {{listaPedidos[1].dimensiones[0].ancho}}
+ -->
+    Cortes
+    {{listaPedidos[0].dimensiones[0].ancho}}
+    {{listaPedidos[0].dimensiones[1].ancho}}
+
+    <ion-card *ngFor="let list of listaPedidos; index as i">
+      <ion-card-content>
+       
+          <ion-label style="font-weight: bold;">Producto {{i+1}}</ion-label><br>
+          <ion-label><span style="font-weight: bold;">Categoría:</span> Madera</ion-label><br>
+          <ion-label><span style="font-weight: bold;">Tipo:</span> Marmoleado</ion-label><br>
+         <!--  {{listaPedidos.dimensiones}} -->
+          
+        <ion-list *ngFor="let list2 of listaPedidos.dimensiones; index as i">
+          <ion-row>
+            <ion-col>
+              Cantidad: {{list2[i].cantidad}}
+            </ion-col>
+            <ion-col>
+              Ancho: {{list2[i].ancho}}
+            </ion-col>
+            <ion-col>
+              Largo: {{list2[i].largo}}
+            </ion-col>
+          </ion-row>
+        </ion-list>
+        
+        <!-- {{list.idproducto}} -->
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-button expand="full" (click)="regresarPedidos(listaPedidos)">
+    Regresar
+  </ion-button>
+  <ion-button expand="full" (click)="pagarListado(listaPedidos,encabezado)">
+    Pagar
+  </ion-button>
+
+</ion-content>

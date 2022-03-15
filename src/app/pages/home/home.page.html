@@ -1,0 +1,35 @@
+<ion-content class="background">
+  <div class="ion-padding">
+    <form #formulario="ngForm" (ngSubmit)="submitLogin()">
+      <ion-grid style="margin-top: 1rem;">
+        <ion-row style="--background: transparent;  justify-content: center;" class="img-fluid">
+          <img class="img-fluid" style="width: 15%;" src="../assets/store2.png" alt="ion"><br>
+        </ion-row>
+        <h1 style="color: white; text-align: center;font-weight: bold;">ION APP</h1>
+        <h5 style="color:white; font-weight: bold; text-align: center; margin-top: 1rem;">Bienvenido</h5>
+        <h6 style="color:white;font-size: 15px; text-align: center;">Porfavor ingresa tus credenciales</h6>
+        <ion-input type="number" style="margin-top: 1rem;" placeholder="Cédula" class="input-home"
+          [(ngModel)]="cliente.cedula" name="cedula" required></ion-input>
+        
+        <ion-input type="text" placeholder="Código Empresa" class="input-home" [(ngModel)]="cliente.codigo"
+          name="codigo" style="margin-top: 1rem;" required></ion-input>
+
+      </ion-grid>
+
+      <h6 style="font-size: 15px; color: white;text-align: end;">Olvidaste tu contraseña?</h6>
+
+      <ion-grid style="margin-top: 1rem; text-align: center;">
+        <!-- <ion-spinner name="bubbles" style="color:white;"></ion-spinner> -->
+        <ion-button size="default" type="submit" class="btn-home" expand="block" [disabled]="formulario.invalid">
+         Ingresar
+        </ion-button><br>
+        <ion-row style="justify-content: center;">
+          <ion-label style="font-size: 0.5rem; color: white;">TODOS LOS DERECHOS RESERVADOS POR <a href="">DESARROLLADORES</a>
+          </ion-label>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </div>
+
+
+</ion-content>

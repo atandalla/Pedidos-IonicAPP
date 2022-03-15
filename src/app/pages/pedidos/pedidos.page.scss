@@ -1,0 +1,29 @@
+ion-toolbar{
+    --background: #597c1e;
+    --color: white;
+}
+
+.label-pedidos{
+
+    letter-spacing: 1px;
+}
+.btn-pedidos{
+    --border-radius:10px;
+}
+
+ion-select {
+    /* Applies to the value and placeholder color */
+
+  
+    /* Set a different placeholder color */
+    --placeholder-color: #971e49;
+  
+    /* Set full opacity on the placeholder */
+    --placeholder-opacity: 1;
+  }
+
+ion-select::part(placeholder)::first-letter {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  

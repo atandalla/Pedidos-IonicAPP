@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Catálogo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Buscar" debounce="200" animated></ion-searchbar>
+  <ion-list>
+
+    <ion-card *ngFor="let pro of categoriaProducto" button (click)="submitProducto(pro)">
+      <ion-row>
+        <ion-col style="text-align: center;">
+          <img class="img-fluid" src="../../assets/wood.jpg" alt="ion" >
+        </ion-col>
+        <ion-col>
+          <ion-card-header>
+            
+            <ion-card-subtitle style="text-transform: uppercase;" >{{pro.categoria}}</ion-card-subtitle>
+            <ion-card-title>{{pro.tipo}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label><span style="font-weight: bolder;">Código:</span> {{pro.cod_producto}}</ion-label><br>
+            <ion-label><span style="font-weight: bolder;">Largo:</span> {{pro.largo}} cm</ion-label><br>
+            <ion-label><span style="font-weight: bolder;">Ancho:</span> {{pro.ancho}} cm</ion-label><br>
+            <ion-label><span style="font-weight: bolder;">Precio:</span> {{pro.precio}} $</ion-label><br>
+          </ion-card-content>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-card-content>
+          <ion-label style="text-align: center; font-weight: bolder;">Detalle</ion-label><br>
+          <ion-label>{{pro.detalle}}</ion-label>
+        </ion-card-content>
+      </ion-row>
+    </ion-card>
+
+    <ion-button expand="block" class="btn-catalogo" style="--color:white; --background: #689305 !important;" (click)="cerrarCatalogo()">REGRESAR</ion-button>
+  </ion-list>
+
+</ion-content>
